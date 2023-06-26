@@ -8,41 +8,23 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".NewsFeedActivity">
+        tools:context=".newsfeed.NewsFeedActivity">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{String.valueOf(viewModel.liveData)}"
-            android:textSize="30sp"
-            android:textColor="?colorOnBackground"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Delta News"/>
-
-        <View
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@color/design_default_color_secondary"
-            android:rotation="@{Float.valueOf(viewModel.liveData)}"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            android:paddingBottom="24dp"
             />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <data>
-        <variable
-            name="textOnScreen"
-            type="String" />
+
         <variable
             name="viewModel"
-            type="com.example.newsapp.NewsFeedViewModel" />
+            type="com.example.newsapp.newsfeed.NewsFeedViewModel" />
     </data>
 
 </layout>
