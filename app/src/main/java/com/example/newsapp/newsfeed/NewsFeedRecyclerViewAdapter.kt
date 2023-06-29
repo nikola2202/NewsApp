@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.R
+import com.example.newsapp.databinding.ViewHolderNewsFeedItemBinding
 import com.example.newsapp.model.NewsFeedItem
 
 class NewsFeedRecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -24,17 +25,19 @@ class NewsFeedRecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setItems(newsFeedItem: List<NewsFeedItem>) {
+    fun setItems(newsFeedItems: List<NewsFeedItem>?) {
         this.newsFeedItems.clear()
-        this.newsFeedItems.addAll(newsFeedItems)
+        this.newsFeedItems.addAll(newsFeedItems?: emptyList())
         notifyDataSetChanged()
     }
 
     inner class NewsFeedItemViewHolder(parent: ViewGroup): RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.view_holder_news_feed_item,parent,false)
     ) {
+        private val binding = ViewHolderNewsFeedItemBinding.bind(itemView)
         fun onBind(newsFeedItem: NewsFeedItem) {
-
+            binding.title = newsFeedItem.title
+            binding.description = newsFeedItem.description
         }
 
     }

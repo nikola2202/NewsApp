@@ -7,7 +7,8 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="?colorOnSurface"
+        android:layout_marginTop="8dp"
+        app:cardBackgroundColor="#FAAB78"
         app:strokeColor="?colorOnSurface"
         app:strokeWidth="1dp">
 
@@ -22,7 +23,7 @@
                 android:paddingTop="12dp"
                 android:paddingBottom="8dp"
                 android:textColor="?colorOnPrimary"
-                android:text="Title Here"
+                android:text="@{title}"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
                 android:layout_marginTop="8dp"
-                android:text="Description Here"
+                android:text="@{description}"
                 android:textColor="?colorOnPrimary"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -45,5 +46,14 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
+
+    <data>
+        <variable
+            name="title"
+            type="String" />
+        <variable
+            name="description"
+            type="String" />
+    </data>
 
 </layout>
