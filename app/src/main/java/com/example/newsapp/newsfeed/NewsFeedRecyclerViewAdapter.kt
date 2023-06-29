@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.R
 import com.example.newsapp.databinding.ViewHolderNewsFeedItemBinding
 import com.example.newsapp.model.NewsFeedItem
+import com.squareup.picasso.Picasso
 
 class NewsFeedRecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -35,9 +36,13 @@ class NewsFeedRecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>
         LayoutInflater.from(parent.context).inflate(R.layout.view_holder_news_feed_item,parent,false)
     ) {
         private val binding = ViewHolderNewsFeedItemBinding.bind(itemView)
+
         fun onBind(newsFeedItem: NewsFeedItem) {
             binding.title = newsFeedItem.title
             binding.description = newsFeedItem.description
+            binding.source = newsFeedItem.source
+            binding.published = newsFeedItem.published
+            binding.imageUrl = newsFeedItem.image_url
         }
 
     }

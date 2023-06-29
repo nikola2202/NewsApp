@@ -8,13 +8,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:cardBackgroundColor="#FAAB78"
+        app:cardBackgroundColor="#526D82"
         app:strokeColor="?colorOnSurface"
         app:strokeWidth="1dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toTopOf="@id/titleTextView"
+                app:layout_constraintDimensionRatio="16:9"
+                app:layout_constraintTop_toTopOf="parent"
+                app:loadWithPicasso="@{imageUrl}"
+                tools:src="@tools:sample/backgrounds/scenic[2]" />
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/titleTextView"
                 android:layout_width="0dp"
@@ -28,7 +41,8 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView"
+                tools:text="Title here"
                 />
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/descriptionTextView"
@@ -43,6 +57,38 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/titleTextView"
                 tools:text="Description here" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/sourceTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="12dp"
+                android:text="@{source}"
+                android:textColor="?colorOnSurface"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/descriptionTextView"
+                tools:text="Source" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/publishedTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="12dp"
+                android:text="@{published}"
+                android:textColor="?colorOnSurface"
+                android:textSize="14sp"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sourceTextView"
+                tools:text="Sept 21, 2021" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
@@ -51,8 +97,21 @@
         <variable
             name="title"
             type="String" />
+
         <variable
             name="description"
+            type="String" />
+
+        <variable
+            name="imageUrl"
+            type="String" />
+
+        <variable
+            name="source"
+            type="String" />
+
+        <variable
+            name="published"
             type="String" />
     </data>
 
