@@ -58,6 +58,18 @@
                 app:layout_constraintTop_toBottomOf="@id/titleTextView"
                 tools:text="Description here" />
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/favoriteImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:padding="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:tint="?colorOnSurface"
+                tools:src="@drawable/ic_favorite_24" />
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/sourceTextView"
                 android:layout_width="wrap_content"

@@ -15,4 +15,9 @@ class NewsFeedViewModel: ViewModel() {
     fun fetchNewsFeed() {
         repository.fetchNewsFeed(_newsFeedLiveData)
     }
+
+    fun updateFavouriteStatus(id:String,isFavourite:Boolean) {
+        repository.updateFavouriteStatus(id,isFavourite)
+    }
+
 }

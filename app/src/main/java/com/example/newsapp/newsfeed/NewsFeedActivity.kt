@@ -14,14 +14,15 @@ import com.example.newsapp.model.NewsFeedItem
 import java.lang.ref.WeakReference
 
 class NewsFeedActivity : AppCompatActivity(), NewsFeedRecyclerViewAdapter.NewsFeedItemInterface {
+
+    private val viewModel: NewsFeedViewModel by lazy {
+        ViewModelProvider(this)[NewsFeedViewModel::class.java]
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val binding: ActivityNewsFeedBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_news_feed)
-
-        val viewModel: NewsFeedViewModel =
-            ViewModelProvider(this)[NewsFeedViewModel::class.java]
 
         binding.lifecycleOwner = this
 
@@ -33,11 +34,19 @@ class NewsFeedActivity : AppCompatActivity(), NewsFeedRecyclerViewAdapter.NewsFe
         viewModel.fetchNewsFeed()
     }
 
+    // region NewsFeedRecyclerViewAdapter.NewsFeedItemInterface
     override fun onNewsFeedItemClicked(url: String) {
         val intent = Intent(this,DetailActivity::class.java).apply {
             putExtra(DetailActivity.ARG_URL,url)
         }
         startActivity(intent)
     }
+
+    override fun onFavouriteStatusChanged(newsFeedItemId:String,newStatus:Boolean) {
+        viewModel.updateFavouriteStatus(newsFeedItemId,newStatus)
+    }
+
+    // endregion NewsFeedRecyclerViewAdapter.NewsFeedItemInterface
+
 }
 

@@ -10,8 +10,8 @@ import com.google.firebase.ktx.Firebase
 
 class NewsFeedRepository {
 
-    val database = Firebase.database
-    val newsFeedReference = database.getReference("news feed")
+    private val database = Firebase.database
+    private val newsFeedReference = database.getReference("news feed")
 
     fun fetchNewsFeed(liveData: MutableLiveData<List<NewsFeedItem>>) {
         newsFeedReference
@@ -19,7 +19,7 @@ class NewsFeedRepository {
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val newsFeedItems: List<NewsFeedItem> = snapshot.children.map { dataSnapshot ->
-                        dataSnapshot.getValue(NewsFeedItem::class.java)!!
+                        dataSnapshot.getValue(NewsFeedItem::class.java)!!.copy(id = dataSnapshot.key!!)
                 }
 
                 liveData.postValue(newsFeedItems)
@@ -30,6 +30,10 @@ class NewsFeedRepository {
                 // Nothing to do
             }
         })
+    }
+
+    fun updateFavouriteStatus(id:String, favourite:Boolean) {
+        newsFeedReference.child(id).child("favourite").setValue(favourite)
     }
 
 }

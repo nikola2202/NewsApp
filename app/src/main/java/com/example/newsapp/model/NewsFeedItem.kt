@@ -8,5 +8,5 @@ data class NewsFeedItem(
     val published: String = "",
     val url: String = "",
     val image_url: String = "",
-    val favorite: Boolean = false
+    val favourite: Boolean = false
 )

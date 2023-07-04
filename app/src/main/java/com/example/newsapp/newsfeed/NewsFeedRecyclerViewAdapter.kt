@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.R
 import com.example.newsapp.databinding.ViewHolderNewsFeedItemBinding
 import com.example.newsapp.model.NewsFeedItem
-import com.squareup.picasso.Picasso
 import java.lang.ref.WeakReference
 
 class NewsFeedRecyclerViewAdapter(
@@ -16,6 +15,7 @@ class NewsFeedRecyclerViewAdapter(
 
     interface NewsFeedItemInterface {
         fun onNewsFeedItemClicked(url:String)
+        fun onFavouriteStatusChanged(newsFeedItemId:String,newStatus:Boolean)
     }
 
     private val newsFeedItems = mutableListOf<NewsFeedItem>()
@@ -25,9 +25,15 @@ class NewsFeedRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as NewsFeedItemViewHolder).onBind(newsFeedItems[position]) {url ->
-            callbackWeakRef.get()?.onNewsFeedItemClicked(url)
+        (holder as NewsFeedItemViewHolder).onBind(
+            newsFeedItem = newsFeedItems[position],
+            onClick = { url->
+                callbackWeakRef.get()?.onNewsFeedItemClicked(url)
+            },
+            onFavoriteChanged = { newStatus ->
+                callbackWeakRef.get()?.onFavouriteStatusChanged(newsFeedItems[position].id,newStatus)
         }
+        )
     }
 
     override fun getItemCount(): Int {
@@ -46,7 +52,11 @@ class NewsFeedRecyclerViewAdapter(
     ) {
         private val binding = ViewHolderNewsFeedItemBinding.bind(itemView)
 
-        fun onBind(newsFeedItem: NewsFeedItem,onClick:(String) -> Unit) {
+        fun onBind(
+            newsFeedItem: NewsFeedItem,
+            onClick:(String) -> Unit,
+            onFavoriteChanged: (Boolean) -> Unit
+        ) {
             binding.title = newsFeedItem.title
             binding.description = newsFeedItem.description
             binding.source = newsFeedItem.source
@@ -56,8 +66,17 @@ class NewsFeedRecyclerViewAdapter(
             binding.root.setOnClickListener{
                 onClick(newsFeedItem.url)
             }
+
+            val drawableResId: Int = if (newsFeedItem.favourite) {
+                R.drawable.ic_favorite_24
+            }else{
+                R.drawable.ic_favorite_outline_24
+            }
+            binding.favoriteImageView.setImageResource(drawableResId)
+            binding.favoriteImageView.setOnClickListener {
+                val newStatus = !newsFeedItem.favourite
+                onFavoriteChanged(newStatus)
+            }
         }
-
     }
-
 }
